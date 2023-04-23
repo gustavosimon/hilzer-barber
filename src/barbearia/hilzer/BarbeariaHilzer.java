@@ -2,9 +2,11 @@ package barbearia.hilzer;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 
 import barbearia.hilzer.barber.Barber;
 import barbearia.hilzer.customer.Customer;
+import static barbearia.hilzer.customer.CustomersConstants.*;
 
 /**
  * Classe principal da solução do problema da barbearia de Hilzer.
@@ -62,7 +64,15 @@ public class BarbeariaHilzer {
 
         @Override
         public void run() {
-            // todo: adicionar a lógica de geração de clientes
+            while (true) {
+                try {
+                    var random = new Random();
+                    Thread.sleep(random.nextLong(10000));
+                    System.out.println("Cliente " + CUSTOMERS_NAMES[random.nextInt(CUSTOMERS_NAMES.length)] + " chegou a barbearia!");
+                } catch (InterruptedException e) {
+                    System.out.println(e);
+                }
+            }
         }
 
     }
