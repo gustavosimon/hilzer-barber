@@ -96,10 +96,6 @@ public class BarbeariaHilzer {
 
         @Override
         public void run() {
-            // Notifica os barbeiros de que um cliente no entrou na barberia
-            // b1.notifyAll();
-            // b2.notifyAll();
-            // b3.notifyAll();
             // Sincroniza o acesso a fila do sofá 
             synchronized (couch) {
                 // Se o sofá tem espaço livre, o cliente se senta no sofá
@@ -135,25 +131,27 @@ public class BarbeariaHilzer {
                     // Cliente que será atendido
                     Customer currentCustomer = null;
                     // Se o sofá está vazio, significa que não há clientes para atender
-                    // Nesse caso, o barbeiro dorme
-                    // synchronized (couch) {
-                    //     if (couch.isEmpty()) {
-                    //         synchronized (this) {
-                    //             this.wait();
-                    //         }
-                    //     }
+                    // Nesse caso, o barbeiro deve dorme
+                    while (true) {
+                        boolean couchEmpty;
+                        synchronized (couch) {
+                            couchEmpty = couch.isEmpty();
+                        }
+                        if (!couchEmpty) {
+                            break;
+                        }
+                        Thread.sleep(1000);
+                    }
                     // Busca o próximo cliente a ser atendido
                     while (currentCustomer == null) {
                         currentCustomer = couch.poll();
                     }
-                    
                     // Como um cliente que estava sentado no sofá está sendo atendido, 
                     // o que estava a mais tempo em pé deve se sentar
                     var nextCustomer = standingsCustomers.poll();
                     if (nextCustomer != null) {
                         couch.add(nextCustomer);
                     }
-                    // }
     
                     System.out.println("O barber " + this.barberName + " está atendendo o cliente " + currentCustomer.getName());
     
