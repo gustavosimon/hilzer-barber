@@ -123,7 +123,6 @@ public class BarbeariaHilzer {
 
         @Override
         public void run() {
-
             // Se a barbearia estiver com a capacidade máxima atingida, não vai ser possível aguardar
             if (isBarberShopCrowded()) {
                 System.out.println("O cliente " + this.getName() + " está saindo da barbearia pois o limite de cliente foi atingido!");
