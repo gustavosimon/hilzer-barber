@@ -86,7 +86,7 @@ public class BarbeariaHilzer {
         public void run() {
             while (true) {
                 try {
-                    Thread.sleep(random.nextLong(2000));
+                    Thread.sleep(random.nextLong(1500));
                     new Customer(CUSTOMERS_NAMES[random.nextInt(CUSTOMERS_NAMES.length)]).run();
                 } catch (InterruptedException e) {
                     System.out.println(e);
@@ -221,6 +221,7 @@ public class BarbeariaHilzer {
                             // o que estava a mais tempo em pé deve se sentar
                             var nextCustomer = standingsCustomers.poll();
                             if (nextCustomer != null) {
+                                System.out.println("O cliente " + nextCustomer.getName() + " se sentou no sofá!");
                                 couch.add(nextCustomer);
                             }
                         }
@@ -233,7 +234,7 @@ public class BarbeariaHilzer {
     
                     // Randomiza o tempo de atendimento pois cada cliente vai demorar um tempo diferente devido 
                     // ao serviço que vai ser realizado
-                    Thread.sleep(random.nextLong(40000));
+                    Thread.sleep(random.nextLong(20000));
 
                     // Instrui o cliente a se levantar e proceder com o pagamento
                     chair = Optional.empty();
